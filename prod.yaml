@@ -12,7 +12,7 @@ spec:
         app: webssh
     spec:
       containers:
-      - name: webssh
+      - name: webssh-prod
         image: ghcr.io/dbca-wa/webssh:1.6.2
         imagePullPolicy: IfNotPresent
         resources:

@@ -12,7 +12,7 @@ spec:
         app: webssh
     spec:
       containers:
-      - name: webssh
+      - name: webssh-uat
         image: ghcr.io/dbca-wa/webssh
         imagePullPolicy: Always
         resources:
