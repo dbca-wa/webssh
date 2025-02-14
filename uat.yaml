@@ -12,17 +12,17 @@ spec:
         app: webssh
     spec:
       containers:
-      - name: webssh-uat
-        image: ghcr.io/dbca-wa/webssh
-        imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "10m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        startupProbe:
+        - name: webssh-uat
+          image: ghcr.io/dbca-wa/webssh
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: '64Mi'
+              cpu: '5m'
+            limits:
+              memory: '512Mi'
+              cpu: '500m'
+          startupProbe:
             failureThreshold: 3
             httpGet:
               path: /
@@ -31,7 +31,7 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-        livenessProbe:
+          livenessProbe:
             failureThreshold: 3
             httpGet:
               path: /
@@ -40,7 +40,7 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-        readinessProbe:
+          readinessProbe:
             failureThreshold: 3
             httpGet:
               path: /
@@ -49,21 +49,21 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-        securityContext:
-          runAsNonRoot: true
-          privileged: false
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-          readOnlyRootFilesystem: true
-        volumeMounts:
-          - mountPath: /tmp
-            name: tmpfs-ram
+          securityContext:
+            runAsNonRoot: true
+            privileged: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmpfs-ram
       volumes:
         - name: tmpfs-ram
           emptyDir:
-            medium: "Memory"
+            medium: 'Memory'
 ---
 apiVersion: v1
 kind: Service
@@ -72,8 +72,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: http
-    port: 8080
+    - name: http
+      port: 8080
   selector:
     app: webssh
 ---
@@ -86,39 +86,10 @@ spec:
     - host: webssh-uat.dbca.wa.gov.au
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: webssh-clusterip-uat
-              port:
-                number: 8080
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: webssh-hpa-uat
-spec:
-  minReplicas: 1
-  maxReplicas: 3
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: webssh-uat
-  metrics:
-    - resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 250
-      type: Resource
----
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: webssh-pdb-uat
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: webssh
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webssh-clusterip-uat
+                port:
+                  number: 8080
