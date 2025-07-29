@@ -7,8 +7,7 @@ LABEL org.opencontainers.image.source=https://github.com/dbca-wa/webssh
 RUN apt-get update -y && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 # Install WebSSH.
-ARG WEBSSH_VERSION=1.6.2
-RUN pip install webssh==${WEBSSH_VERSION}
+RUN pip install --no-cache-dir webssh==1.6.3
 
 # Create a non-root user to run WebSSH.
 ARG UID=10001
