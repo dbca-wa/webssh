@@ -3,6 +3,8 @@ name: 'Build Docker image and run Trivy vulnerability scan'
 on:
   push:
     branches: ['main']
+    # Publish tagged commits as releases:
+    tags: ['*']
   pull_request:
     branches: ['main']
 
