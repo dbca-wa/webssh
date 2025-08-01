@@ -65,6 +65,11 @@ spec:
           emptyDir:
             medium: 'Memory'
       automountServiceAccountToken: false
+      tolerations:
+        - effect: NoSchedule
+          key: kubernetes.azure.com/scalesetpriority
+          operator: Equal
+          value: spot
 ---
 apiVersion: v1
 kind: Service
