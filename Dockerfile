@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.13
+FROM python:3.14
 LABEL org.opencontainers.image.authors=asi@dbca.wa.gov.au
 LABEL org.opencontainers.image.source=https://github.com/dbca-wa/webssh
 
