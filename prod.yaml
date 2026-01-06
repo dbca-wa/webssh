@@ -65,6 +65,29 @@ spec:
           emptyDir:
             medium: 'Memory'
       automountServiceAccountToken: false
+      tolerations:
+        - key: arch
+          operator: Equal
+          value: arm64
+          effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: arch
+                    operator: In
+                    values:
+                      - arm64
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: webssh
+                topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service

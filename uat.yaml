@@ -66,10 +66,28 @@ spec:
             medium: 'Memory'
       automountServiceAccountToken: false
       tolerations:
-        - effect: NoSchedule
-          key: kubernetes.azure.com/scalesetpriority
+        - key: arch
           operator: Equal
-          value: spot
+          value: arm64
+          effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: arch
+                    operator: In
+                    values:
+                      - arm64
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: webssh
+                topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service
