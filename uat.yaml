@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: webssh-uat
-          image: ghcr.io/dbca-wa/webssh:1.6.3@sha256:8c4e752b8630e7555b6a959f9cd2b588985a24b5c826fcbe673dce677ada9fc1
+          image: ghcr.io/dbca-wa/webssh
           imagePullPolicy: IfNotPresent
           resources:
             requests:
