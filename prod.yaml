@@ -13,12 +13,12 @@ spec:
     spec:
       containers:
         - name: webssh-prod
-          image: ghcr.io/dbca-wa/webssh:1.6.3@sha256:754300a566e024cee6e8ee5d9904564757ead1137d987b04692aedd615cc9c1c
+          image: ghcr.io/dbca-wa/webssh:1.6.3@sha256:49d68437dbb13648d1fc2cefdb6c9a55de85264aff74356ac4086fe90b4ca409
           imagePullPolicy: IfNotPresent
           resources:
             requests:
               memory: '64Mi'
-              cpu: '5m'
+              cpu: '10m'
             limits:
               memory: '512Mi'
               cpu: '500m'

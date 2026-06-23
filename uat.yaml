@@ -14,11 +14,11 @@ spec:
       containers:
         - name: webssh-uat
           image: ghcr.io/dbca-wa/webssh
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           resources:
             requests:
               memory: '64Mi'
-              cpu: '5m'
+              cpu: '10m'
             limits:
               memory: '512Mi'
               cpu: '500m'
